@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArticleAnimal index{% endblock %}
+
+{% block body %}
+    <h1>ArticleAnimal index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Animal_name</th>
+                <th>Status</th>
+                <th>Age</th>
+                <th>Content</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article_animal in article_animals %}
+            <tr>
+                <td><img class="img_size" src="{{ asset('upload/article/' ~ article_animal.img) }}" alt="{{ article_animal.Animalname }}"></td>
+                <td>{{ article_animal.id }}</td>
+                <td>{{ article_animal.AnimalName }}</td>
+                    {% set statusLabels = {
+                        1: 'Danger',
+                        2: 'Vulnerable',
+                        3: 'Minor Preoccupation',
+                        4: 'Not Evaluated'
+                    } %}
+                <td>{{ statusLabels[article_animal.Status] ?? 'Unknown' }}</td>
+
+                <td>{{ article_animal.Age }}</td>
+                <td>{{ article_animal.Content }}</td>
+                <td>
+                    <a href="{{ path('app_article_animal_show', {'id': article_animal.id}) }}">show</a>
+                    <a href="{{ path('app_article_animal_edit', {'id': article_animal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_article_animal_new') }}">Create new</a>
+{% endblock %}

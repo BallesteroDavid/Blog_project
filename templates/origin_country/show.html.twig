@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OriginCountry{% endblock %}
+
+{% block body %}
+    <h1>OriginCountry</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ origin_country.id }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ origin_country.Country }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_origin_country_index') }}">back to list</a>
+
+    <a href="{{ path('app_origin_country_edit', {'id': origin_country.id}) }}">edit</a>
+
+    {{ include('origin_country/_delete_form.html.twig') }}
+{% endblock %}

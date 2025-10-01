@@ -27,13 +27,10 @@ class ArticleAnimal
     #[ORM\Column(length: 500)]
     private ?string $Content = null;
 
+    // Relation many to One de la Table articleAnimals à Type (articleAnimals peut recevoir plusieurs informations de la Table Type)
     #[ORM\ManyToOne(inversedBy: 'articleAnimals')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $Type = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articleAnimals')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Species $Species = null;
 
     #[ORM\ManyToOne(inversedBy: 'articleAnimals')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,6 +41,12 @@ class ArticleAnimal
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'articleAnimal')]
     private Collection $Comment;
+
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Species = null;
 
     public function __construct()
     {
@@ -115,18 +118,6 @@ class ArticleAnimal
         return $this;
     }
 
-    public function getSpecies(): ?Species
-    {
-        return $this->Species;
-    }
-
-    public function setSpecies(?Species $Species): static
-    {
-        $this->Species = $Species;
-
-        return $this;
-    }
-
     public function getOriginCountry(): ?OriginCountry
     {
         return $this->Origin_country;
@@ -165,6 +156,30 @@ class ArticleAnimal
                 $comment->setArticleAnimal(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): static
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getSpecies(): ?string
+    {
+        return $this->Species;
+    }
+
+    public function setSpecies(string $Species): static
+    {
+        $this->Species = $Species;
 
         return $this;
     }
