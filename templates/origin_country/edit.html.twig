@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit OriginCountry{% endblock %}
+
+{% block body %}
+    <h1>Edit OriginCountry</h1>
+
+    {{ include('origin_country/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_origin_country_index') }}">back to list</a>
+
+    {{ include('origin_country/_delete_form.html.twig') }}
+{% endblock %}

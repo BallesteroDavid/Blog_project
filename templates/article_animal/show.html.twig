@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArticleAnimal{% endblock %}
+
+{% block body %}
+    <h1>ArticleAnimal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><img class="img_size" src="{{ asset('upload/article/' ~ article_animal.img) }}" alt="{{ article_animal.Animalname }}"></td>
+                <th>Id</th>
+                <td>{{ article_animal.id }}</td>
+            </tr>
+            <tr>
+                <th>Animal_name</th>
+                <td>{{ article_animal.AnimalName }}</td>
+            </tr>
+            <tr>
+                {% set statusLabels = {
+                    1: 'Danger',
+                    2: 'Vulnerable',
+                    3: 'Minor Preoccupation',
+                    4: 'Not Evaluated'
+                } %}
+
+            <td>{{ statusLabels[article_animal.Status] ?? 'Unknown' }}</td>
+
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ article_animal.Age }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article_animal.Content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_article_animal_index') }}">back to list</a>
+
+    <a href="{{ path('app_article_animal_edit', {'id': article_animal.id}) }}">edit</a>
+
+    {{ include('article_animal/_delete_form.html.twig') }}
+
+    <h2>Commentaries</h2>
+    <ul>
+        {% for comment in article_animal.comment %}
+            <li>{{ comment.content }}</li>
+        {% else %}
+            <li>There is not a comment for now</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a comment</h2>
+    {{ form_start(commentForm) }}
+        {{ form_widget(commentForm) }}
+        <button type="submit">Envoyer</button>
+    {{ form_end(commentForm) }}
+{% endblock %}
